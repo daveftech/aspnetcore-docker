@@ -15,9 +15,22 @@ steps:
   inputs:
     command: 'restore'
     feedsToUse: 'select'
+
 - task: DotNetCoreCLI@2
   displayName: 'dotnet build'
   inputs:
     command: 'build'
 
+- task: Docker@2
+  displayName: 'docker build'
+  inputs:
+    repository: 'daveftech/aspnetcore-docker-image'
+    command: 'build'
+    Dockerfile: '**/Dockerfile'
+
+- task: Docker@2
+  displayName: 'docker push'
+  inputs:
+    repository: 'daveftech/aspnetcore-docker-image'
+    command: 'push'
 
